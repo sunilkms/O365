@@ -1,5 +1,9 @@
 "Getting All Shared Mailboxes..."
-$Allmailbox = Get-Mailbox -ResultSize unlimited -RecipientTypeDetails sharedMailbox 
+#For all the users in org
+$Allmailbox = Get-Mailbox -ResultSize unlimited
+
+#for only Shared Mailbox
+#$Allmailbox = Get-Mailbox -ResultSize unlimited #-RecipientTypeDetails sharedMailbox 
 
 $MailboxPermissions=@()
 foreach($Mailbox in $AllMailbox) {
@@ -9,6 +13,8 @@ $MailboxPermissions+=$prm
 
 $FilteredPermissions = $MailboxPermissions | ? {$_.User -Notlike "NT AUTHORITY*" -and `
 $_.User -Notlike "S-1-5-21*" -and $_.IsInherited -ne "True"}
+
+#select the required properties in Report
 $postfilter = $FilteredPermissions | select Identity,User,AccessRights
 
 "Grouping by User.."
