@@ -12,7 +12,7 @@ $smtpServer="smtp.xyz.com"
 )
 
 #edit the existing memberlist url.
-$existingList="C:\Users\su347719\Desktop\ExistingCAMembers.txt"
+$existingList="C:\Users\sunil\Desktop\ExistingCAMembers.txt"
 $EL=gc $existingList
 
 $CA=Get-MsolRole -RoleName  "Company Administrator"
