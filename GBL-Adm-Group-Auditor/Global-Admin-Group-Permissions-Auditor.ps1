@@ -2,6 +2,7 @@
 #Author: Sunil Chauhan 
 #www.sunilchauhan.info
 #About: This script will monitor Global Administrator Group Membership.
+#version: 1.0
 #------------------------------------------------------------------------
 
 param(
