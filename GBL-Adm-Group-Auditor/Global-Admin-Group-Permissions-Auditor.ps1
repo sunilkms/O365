@@ -2,17 +2,15 @@
 #Author: Sunil Chauhan 
 #www.sunilchauhan.info
 #About: This script will monitor Global Administrator Group Membership.
-#version: 1.0
 #------------------------------------------------------------------------
 
 param(
 [switch]$firstRun=$False,
-$to="admins@xyz.com",
-$from=Auditor@xyz.com,
-$smtpServer="smtp.xyz.com"
+$to="Sunil.chauhan@xyz.com",
+$from="Sunil.chauhan@xyz.com",
+$smtpServer="smtp.office365.com"
 )
 
-#edit the existing memberlist url.
 $existingList="C:\Users\sunil\Desktop\ExistingCAMembers.txt"
 $EL=gc $existingList
 
@@ -25,40 +23,44 @@ Add-Content -Value $members.Emailaddress -Path $existingList
 } else {
 
 if ($members.count -gt $el.count) {
+
 "A new entry has been added"
 "Getting the newly added entry"
 
 $addition = Compare-Object -DifferenceObject $members.EmailAddress -ReferenceObject $el
-Write-host "New User:" $addition.InputObject -f Yellow
-$subject= "Global Administrator Auditor: A new addition to the group has been detected"
+Write-host "New User:" $($addition.InputObject -join "; ")-f Yellow
+$subject= "Global Administrator Group Membership Auditor::Change Detected-Member Added."
 $Body="
 
 A new addition to the group has been detected
 
-User: $($addition.InputObject)
+User: $($addition.InputObject -join "; ")
 
 "
-Send-MailMessage -Body $body -To $to -From $from -Subject $subject -SmtpServer $smtpServer
+Send-MailMessage -Body $body -To $to -From $from -Subject $subject -SmtpServer $smtpServe
+Clear-Content -Path $existingList
 Add-Content -Value $members.Emailaddress -Path $existingList
 } 
 
 elseif ($members.count -lt $el.count) {
-"a member has been removed from the group"
+"A member has been removed from the group."
+
 "getting the member details"
 
 $diff = Compare-Object -DifferenceObject $members.EmailAddress -ReferenceObject $el
-$subject= "Global Administrator Auditor: Change detected Member has been removed from the group."
+Write-host "User Removed:" $($Diff.InputObject -join "; ")-f Yellow
+$subject= "Global Administrator Group Membership Auditor::Change Detected-Member Removed"
 $Body="
 
 A Member has been removed from the group.
-User:$($diff.InputObject)
+
+User:$($diff.InputObject -join "; ")
 
 "
 Send-MailMessage -Body $body -To $to -From $from -Subject $subject -SmtpServer $smtpServer
-
+Clear-Content -Path $existingList
+Add-Content -Value $members.Emailaddress -Path $existingList
 } else {
-
 "No change were detected in the group"
-
-}
+ }
 }
