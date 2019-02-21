@@ -13,7 +13,7 @@
 |Type Shared Created	|**7**|
 |Total Number of Users Created	|**150**|
 
-**Cloud Only** 
+**Below Cloud Only Account were Found** 
 
 |WhenCreatedUTC|	DisplayName|	RecipientTypeDetails	|IsDirSynced |
 |---|---|---|---|
