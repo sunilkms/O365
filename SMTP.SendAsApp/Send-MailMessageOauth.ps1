@@ -1,30 +1,21 @@
 function Send-MailMessageOAuth {
     [CmdletBinding()]
-    param (
-        [Parameter(Mandatory = $true)]
-        [string]
-        $ServerName="smtp.office365.com",
+      param (        
+        [string]$ServerName="smtp.office365.com",
         $token=$AccessToken,
         [Parameter(Mandatory = $true)]
-        [String]
-        $SendingAddress="labadmin@lab365.in",
-        [Parameter(Mandatory = $true)]
-        [String]
-        $userName="labadmin@lab365.in",
-        [Parameter(Mandatory = $true)]
-        [String]
-        $To="labadmin@lab365.in",
-        [Parameter(Mandatory = $true)]
-        [String]
-        $Subject="TEst msg",
-        [Parameter(Mandatory = $true)]
-        [String]
-        $Body="This is test.",
+        [String]$userName,
         [Parameter(Mandatory = $false)]
-        [String]
-        $AttachmentFileName,
-        [int]
-        $Port = 587,
+        [String]$SendingAddress=$UserName,
+        [Parameter(Mandatory = $true)]        
+        [String]$To,
+        [Parameter(Mandatory = $true)]
+        [String]$Subject,
+        [Parameter(Mandatory = $true)]
+        [String]$Body,
+        [Parameter(Mandatory = $false)]
+        [String]$AttachmentFileName,
+        [int]$Port = 587
     )
     Process {       
 
